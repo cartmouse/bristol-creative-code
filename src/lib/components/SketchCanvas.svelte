@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
-	import p5 from 'p5';
 	import { getSketches, getPerson, getPersonDisplayName, type Sketch } from '$lib/content';
+	import type p5 from 'p5';
 
 	let container: HTMLDivElement | undefined = $state();
 	let instance: p5 | undefined;
@@ -24,17 +24,18 @@
 		return idx;
 	}
 
-	function setSketch(idx: number) {
+	async function setSketch(idx: number) {
 		if (!container || idx < 0 || idx >= sketches.length) return;
 		if (idx === currentIdx) return;
 		instance?.remove();
 		currentIdx = idx;
 		sketch = sketches[idx];
-		instance = new p5(sketch.sketch, container);
+		const { default: P5 } = await import('p5');
+		instance = new P5(sketch.sketch, container);
 	}
 
-	export function next() {
-		setSketch(pickDifferent());
+	export async function next() {
+		await setSketch(pickDifferent());
 	}
 
 	onMount(() => setSketch(pickRandom()));
