@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { resolve } from '$app/paths';
+</script>
+
 <div class="hero-box">
 	<p class="kicker">Bristol · Pervasive Media Studio</p>
 	<h1>Code & creativity</h1>
@@ -9,7 +13,7 @@
 		<p>Show up, share what you're working on, no experience required!</p>
 	</div>
 
-	<a class="btn" href="/about">What is this?</a>
+	<a class="btn" href={resolve('/about')}>What is this?</a>
 </div>
 
 <style>

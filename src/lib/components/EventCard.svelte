@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { formatDate } from '$lib/utils/date';
 	import type { Event } from '$lib/content/types';
 
@@ -9,7 +10,7 @@
 	let { event }: Props = $props();
 </script>
 
-<a class="card" href="/events/{event.slug}">
+<a class="card" href={resolve('/events/[slug]', { slug: event.slug })}>
 	<div class="body">
 		<h3>{event.title}</h3>
 		<time class="muted" datetime={event.date}>{formatDate(event.date)}</time>

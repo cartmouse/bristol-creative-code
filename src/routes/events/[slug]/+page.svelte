@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils/date';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import { resolve } from '$app/paths';
 
 	let { data } = $props();
 	const event = $derived(data.event);
@@ -14,7 +15,7 @@
 <div class="container">
 	<header class="event-header">
 		<p class="back">
-			<a href="/events">← All events</a>
+			<a href={resolve('/events')}>← All events</a>
 		</p>
 		<h1>{event.title}</h1>
 		<p class="date"><time datetime={event.date}>{formatDate(event.date)}</time></p>
@@ -32,7 +33,7 @@
 		</div>
 	{:else}
 		<p class="muted">
-			No projects from this jam yet — be the first to <a href="/submit">add one</a>.
+			No projects from this jam yet — be the first to <a href={resolve('/submit')}>add one</a>.
 		</p>
 	{/if}
 </div>

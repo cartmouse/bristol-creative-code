@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import NextEventCard from '$lib/components/NextEventCard.svelte';
 	import SketchCanvas from '$lib/components/SketchCanvas.svelte';
@@ -23,13 +24,13 @@
 <section class="container section">
 	<header class="section-head no-border">
 		<h2>Next jam</h2>
-		<a class="see-all" href="/events">All events →</a>
+		<a class="see-all" href={resolve('/events')}>All events →</a>
 	</header>
 	{#if data.nextEvent}
 		<NextEventCard event={data.nextEvent} />
 	{:else}
 		<p class="muted">
-			No upcoming jams scheduled yet. Watch this space, or <a href="/submit"
+			No upcoming jams scheduled yet. Watch this space, or <a href={resolve('/submit')}
 				>help us set the next one</a
 			>.
 		</p>
@@ -39,7 +40,7 @@
 <section class="container section">
 	<header class="section-head">
 		<h2>Recent projects</h2>
-		<a class="see-all" href="/projects">All projects →</a>
+		<a class="see-all" href={resolve('/projects')}>All projects →</a>
 	</header>
 
 	{#if data.recentProjects.length}
@@ -49,7 +50,7 @@
 			{/each}
 		</div>
 	{:else}
-		<p class="muted">No projects yet — be the first to <a href="/submit">add one</a>.</p>
+		<p class="muted">No projects yet — be the first to <a href={resolve('/submit')}>add one</a>.</p>
 	{/if}
 </section>
 

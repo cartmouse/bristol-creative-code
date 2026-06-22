@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { getPerson, getPersonDisplayName } from '$lib/content';
 	import type { Event } from '$lib/content/types';
 
@@ -16,10 +17,10 @@
 
 <div class="meta">
 	<p class="event-link">
-		Made at <a href="/events/{event.slug}">{event.title}</a>
+		Made at <a href={resolve('/events/[slug]', { slug: event.slug })}>{event.title}</a>
 		{#if author}
 			<span>by</span>
-			<a href="/people/{author.slug}">{authorDisplay}</a>
+			<a href={resolve('/people/[slug]', { slug: author.slug })}>{authorDisplay}</a>
 		{/if}
 	</p>
 	{#if tags && tags.length}

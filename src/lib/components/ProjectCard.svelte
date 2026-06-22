@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { getPerson, getPersonDisplayName } from '$lib/content';
 	import type { ProjectWithEvent } from '$lib/content/types';
 
@@ -20,10 +21,14 @@
 	{/if}
 	<div class="body">
 		<h3>
-			<a class="title-link" href="/projects/{project.slug}">{project.title}</a>
+			<a class="title-link" href={resolve('/projects/[slug]', { slug: project.slug })}
+				>{project.title}</a
+			>
 		</h3>
 		<div class="meta">
-			<a class="event-link" href="/events/{project.event.slug}">{project.event.title}</a>
+			<a class="event-link" href={resolve('/events/[slug]', { slug: project.event.slug })}
+				>{project.event.title}</a
+			>
 			<span class="sep" aria-hidden="true">·</span>
 			{#if author}
 				<span>{authorDisplay}</span>

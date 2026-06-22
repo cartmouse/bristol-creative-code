@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import { getAvatarString } from '$lib/content/index.js';
 
@@ -28,7 +29,7 @@
 <div class="container">
 	<header class="person-header">
 		<p class="back">
-			<a href="/people">← All people</a>
+			<a href={resolve('/people')}>← All people</a>
 		</p>
 		<div class="id">
 			{#if person.avatar}

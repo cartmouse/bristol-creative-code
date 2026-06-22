@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import ContentMeta from '$lib/components/ContentMeta.svelte';
 
 	let { data } = $props();
@@ -17,7 +18,7 @@
 <div class="container">
 	<header class="project-header">
 		<p class="back">
-			<a href="/projects">← All projects</a>
+			<a href={resolve('/projects')}>← All projects</a>
 		</p>
 		<h1>{project.title}</h1>
 		<ContentMeta {event} authorSlug={project.author ?? null} tags={project.tags} />

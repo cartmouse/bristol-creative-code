@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { getAvatarString, getPersonDisplayName } from '$lib/content';
 	import type { Person } from '$lib/content/types';
 
@@ -14,7 +15,7 @@
 	const avatarString = $derived(getAvatarString(person));
 </script>
 
-<a class="card" href="/people/{person.slug}">
+<a class="card" href={resolve('/people/[slug]', { slug: person.slug })}>
 	{#if !avatarString}
 		<img class="avatar" src={person.avatar} alt="" loading="lazy" />
 	{:else}

@@ -2,6 +2,7 @@
 	import '../app.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import { page } from '$app/state';
+	import { asset, resolve } from '$app/paths';
 
 	let { children } = $props();
 
@@ -11,7 +12,7 @@
 		{ href: '/projects', label: 'Projects' },
 		{ href: '/people', label: 'People' },
 		{ href: '/about', label: 'About' }
-	];
+	] as const;
 
 	function isActive(href: string): boolean {
 		if (href === '/') return page.url.pathname === '/';
@@ -31,14 +32,14 @@
 <div class="site">
 	<header class="site-header">
 		<div class="container header-inner">
-			<a class="brand" href="/">
-				<span class="brand-text">BCCJ</span>
+			<a class="brand" href={resolve('/')}>
+				<span class="brand-text">Creative Code Bristol</span>
 			</a>
 			<nav>
 				<ul>
-					{#each nav as item (item.href)}
+					{#each nav as item}
 						<li>
-							<a href={item.href} class:active={isActive(item.href)}>{item.label}</a>
+							<a href={resolve(item.href)} class:active={isActive(item.href)}>{item.label}</a>
 						</li>
 					{/each}
 				</ul>
@@ -53,7 +54,7 @@
 	<footer class="site-footer">
 		<div class="container footer-inner">
 			<div class="footer-left">
-				<p class="muted">Bristol Creative Code Jam</p>
+				<p class="muted">Creative Code Bristol</p>
 				<span>·</span>
 				<a
 					class="icon"
@@ -62,11 +63,16 @@
 					target="_blank"
 					aria-label="Instagram"
 				>
-					<img src="/assets/icons/instagram.svg" alt="The Instagram logo" width="20" height="20" />
+					<img
+						src={asset('/assets/icons/instagram.svg')}
+						alt="The Instagram logo"
+						width="20"
+						height="20"
+					/>
 				</a>
 			</div>
 			<div class="footer-right">
-				<a href="/submit">Submit content</a>
+				<a href={resolve('/submit')}>Submit content</a>
 				<span>·</span>
 				<a
 					class="icon"
@@ -75,7 +81,12 @@
 					target="_blank"
 					aria-label="GitHub"
 				>
-					<img src="/assets/icons/github.svg" alt="The GitHub logo" width="20" height="20" />
+					<img
+						src={asset('/assets/icons/github.svg')}
+						alt="The GitHub logo"
+						width="20"
+						height="20"
+					/>
 				</a>
 			</div>
 		</div>

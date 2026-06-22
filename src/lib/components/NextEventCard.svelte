@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import { formatDate } from '$lib/utils/date';
 	import type { Event } from '$lib/content/types';
 
@@ -15,7 +16,7 @@
 	</p>
 	<div class="actions">
 		{#if !hideDetailsButton}
-			<a class="btn" href="/about">Details</a>
+			<a class="btn" href={resolve('/about')}>Details</a>
 		{/if}
 		{#if event.rsvp}
 			<a class="btn btn-accent" href={event.rsvp} rel="noopener noreferrer" target="_blank">RSVP</a>

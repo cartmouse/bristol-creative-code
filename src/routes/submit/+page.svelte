@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
+
 	const eventExample = `---
 title: August 25
 date: 2025-08-12
@@ -152,8 +154,8 @@ export default function sketch(p) {
 			</li>
 			<li>Dates are <code>YYYY-MM-DD</code>.</li>
 			<li>
-				If you're unsure of anything, just reach out to one of the <a href="/people">organisers</a> who
-				will be able to help!
+				If you're unsure of anything, just reach out to one of the
+				<a href={resolve('/people')}>organisers</a> who will be able to help!
 			</li>
 		</ul>
 	</div>

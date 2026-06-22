@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onMount, onDestroy } from 'svelte';
+	import { resolve } from '$app/paths';
 	import { getSketches, getPerson, getPersonDisplayName, type Sketch } from '$lib/content';
 	import type p5 from 'p5';
 
@@ -47,7 +48,7 @@
 		<p class="info">
 			<em>{sketch.meta.title}</em>
 			{#if author}
-				by <a href="/people/{author.slug}">{authorDisplay}</a>
+				by <a href={resolve('/people/[slug]', { slug: author.slug })}>{authorDisplay}</a>
 			{:else if sketch.meta.author}
 				by {sketch.meta.author}
 			{/if}

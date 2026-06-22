@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { resolve } from '$app/paths';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 
 	let { data } = $props();
@@ -21,7 +22,7 @@
 			{/each}
 		</div>
 	{:else}
-		<p class="muted">No projects yet — be the first to <a href="/submit">add one</a>.</p>
+		<p class="muted">No projects yet — be the first to <a href={resolve('/submit')}>add one</a>.</p>
 	{/if}
 </div>
 
