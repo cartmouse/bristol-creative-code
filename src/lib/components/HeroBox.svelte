@@ -1,5 +1,10 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
+	import { getPerson, getPersonDisplayName, type Sketch } from '$lib/content';
+
+	let { sketch }: { sketch: Sketch | undefined } = $props();
+	const author = $derived(sketch?.meta.author ? getPerson(sketch.meta.author) : undefined);
+	const authorDisplay = $derived(author ? getPersonDisplayName(author) : '');
 </script>
 
 <div class="hero-box">
@@ -13,7 +18,19 @@
 		<p>Show up, share what you're working on, no experience required!</p>
 	</div>
 
-	<a class="btn" href={resolve('/about')}>What is this?</a>
+	<div class="footer">
+		<a class="btn" href={resolve('/about')}>What is this?</a>
+		{#if sketch}
+			<p>
+				<em>{sketch.meta.title}</em>
+				{#if author}
+					by <a href={resolve('/people/[slug]', { slug: author.slug })}>{authorDisplay}</a>
+				{:else if sketch.meta.author}
+					by {sketch.meta.author}
+				{/if}
+			</p>
+		{/if}
+	</div>
 </div>
 
 <style>
@@ -43,5 +60,16 @@
 		color: var(--color-ink);
 		margin: 0 0 var(--space-4);
 		line-height: 1.5;
+	}
+
+	.footer {
+		display: flex;
+		justify-content: space-between;
+		align-items: end;
+	}
+
+	.footer p {
+		font-size: 0.8rem;
+		margin: 0;
 	}
 </style>

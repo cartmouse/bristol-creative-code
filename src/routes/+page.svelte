@@ -4,8 +4,11 @@
 	import NextEventCard from '$lib/components/NextEventCard.svelte';
 	import SketchCanvas from '$lib/components/SketchCanvas.svelte';
 	import HeroBox from '$lib/components/HeroBox.svelte';
+	import type { Sketch } from '$lib/content';
 
 	let { data } = $props();
+
+	let sketch = $state<Sketch>();
 </script>
 
 <svelte:head>
@@ -14,10 +17,10 @@
 
 <section class="hero-section">
 	<div class="sketch">
-		<SketchCanvas />
+		<SketchCanvas bind:sketch />
 	</div>
 	<div class="container hero-content">
-		<HeroBox />
+		<HeroBox {sketch} />
 	</div>
 </section>
 
