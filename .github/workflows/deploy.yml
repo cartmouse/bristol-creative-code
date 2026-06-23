@@ -21,8 +21,6 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm run build
-        env:
-          BASE_PATH: /creative-code-bristol
       - uses: actions/upload-pages-artifact@v3
         with:
           path: build
