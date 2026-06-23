@@ -67,7 +67,11 @@ function isUpcoming(event: Event): boolean {
 
 export { isUpcoming };
 
-const events: Event[] = rawEvents.map((e) => ({ ...e, title: `#${e.slug}` }));
+const events: Event[] = rawEvents.map((e) => ({
+	...e,
+	title: `#${e.slug}`,
+	images: e.images?.map((img) => ({ ...img, src: resolveAssetUrl(img.src)! }))
+}));
 
 const people: Person[] = rawPeople.map((p) => ({ ...p, avatar: resolveAssetUrl(p.avatar) }));
 const projects: Project[] = rawProjects.map((p) => ({ ...p, image: resolveAssetUrl(p.image) }));
@@ -126,6 +130,36 @@ export function getEvent(slug: string): Event | undefined {
 
 export function getEventSlugs(): string[] {
 	return events.map((e) => e.slug);
+}
+
+export type EventGalleryImage = {
+	src: string;
+	alt: string;
+	eventSlug: string;
+	eventTitle: string;
+};
+
+// Source - https://stackoverflow.com/a/12646864
+// Posted by Laurens Holst, modified by community. See post 'Timeline' for change history
+// Retrieved 2026-06-23, License - CC BY-SA 4.0
+function shuffleArray(array: unknown[]) {
+	for (let i = array.length - 1; i > 0; i--) {
+		const j = Math.floor(Math.random() * (i + 1));
+		[array[i], array[j]] = [array[j], array[i]];
+	}
+}
+
+export function getEventGalleryImages(): EventGalleryImage[] {
+	const newEvents = events.flatMap((e) =>
+		(e.images ?? []).map((img) => ({
+			src: img.src,
+			alt: img.alt,
+			eventSlug: e.slug,
+			eventTitle: e.title
+		}))
+	);
+	shuffleArray(newEvents);
+	return newEvents;
 }
 
 function personSortKey(p: Person): string {

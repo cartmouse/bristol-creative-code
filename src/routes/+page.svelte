@@ -1,10 +1,12 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { asset, resolve } from '$app/paths';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import SketchCanvas from '$lib/components/SketchCanvas.svelte';
 	import HeroBox from '$lib/components/HeroBox.svelte';
+	import Gallery from '$lib/components/Gallery.svelte';
 	import type { Sketch } from '$lib/content';
 	import EventCard from '$lib/components/EventCard.svelte';
+	import { prefersReducedMotion } from 'svelte/motion';
 
 	let { data } = $props();
 
@@ -22,15 +24,28 @@
 
 <section class="hero-section">
 	<div class="sketch">
-		<SketchCanvas bind:sketch />
+		{#if prefersReducedMotion.current}
+			<img src={asset('/assets/content/banner.svg')} alt="A grid of black squares" />
+		{:else}
+			<SketchCanvas bind:sketch />
+		{/if}
 	</div>
 	<div class="container hero-content">
 		<HeroBox {sketch} />
 	</div>
 </section>
 
+{#if data.galleryImages.length}
+	<section class="container section">
+		<header class={`section-head ${isMobile ? '' : 'no-border'}`}>
+			<h2>Gallery</h2>
+		</header>
+		<Gallery images={data.galleryImages} />
+	</section>
+{/if}
+
 <section class="container section">
-	<header class={`section-head ${isMobile ? '' : 'no-border'}`}>
+	<header class="section-head">
 		<h2>Next Event</h2>
 		<a class="see-all" href={resolve('/events')}>All events →</a>
 	</header>

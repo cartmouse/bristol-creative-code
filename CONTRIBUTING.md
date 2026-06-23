@@ -12,7 +12,7 @@ branch (e.g. `add-my-project`), and you're ready to edit.
 
 Pick the right folder based on what you're adding:
 
-- `src/content/events/` - a new jam date
+- `src/content/events/` - a new jam
 - `src/content/people/` - your bio (the filename is your URL slug)
 - `src/content/projects/` - something you made
 - `src/content/sketches/` - a p5.js sketch for the home page hero
@@ -29,11 +29,23 @@ between `---` markers. Sketches are `.js` files with a different shape — see b
 
 ```yaml
 ---
-title: August 25
 date: 2025-08-12
 rsvp: https://example.com/rsvp
+images:
+  - src: /assets/content/events/august-25/group.jpg
+    alt: Group photo at the end of the jam
+  - src: /assets/content/events/august-25/projects.jpg
+    alt: Laptops showing finished projects on the big table
 ---
 ```
+
+The filename of the event is used for the slug and also for the title shown on
+the event cards and event page.
+
+`images` is a gallery of photos shown on the event page and cycled
+through on the home page. Each entry requires `src` and `alt` text.
+Store the files under `static/assets/content/events/{slug}/...` and
+reference them with absolute paths starting `/assets/...`.
 
 ### Person
 
@@ -85,31 +97,32 @@ A WebGL experiment.
 
 ### Sketch (.js file)
 
-The hero on the home page shows a random p5.js sketch. A sketch is a single
-`.js` file that exports a default function (the p5 instance-mode sketch) plus
-an optional `meta` object with `title` and `author`. Prefix all p5 calls with `p.`:
+The hero on the home page shows a random [p5.js](https://p5js.org/) sketch. A
+sketch is a single `.js` file that exports a default function (the p5
+instance-mode sketch) plus an optional `meta` object with `title` and `author`.
+Prefix all p5 calls with `p.`:
 
 ```js
 export const meta = {
-	title: 'My cool sketch',
-	author: 'your-slug' // optional, links to /people/your-slug
+ title: 'My cool sketch',
+ author: 'your-slug' // optional, links to /people/your-slug
 };
 
 export default function sketch(p) {
-	p.setup = () => {
-		p.createCanvas(400, 400);
-		p.background(255);
-	};
+ p.setup = () => {
+  p.createCanvas(400, 400);
+  p.background(255);
+ };
 
-	p.draw = () => {
-		p.fill(0);
-		p.circle(p.random(400), p.random(400), 20);
-	};
+ p.draw = () => {
+  p.fill(0);
+  p.circle(p.random(400), p.random(400), 20);
+ };
 }
 ```
 
-`title` is shown ontop of the hero. If `author` matches a person file in
-`src/content/people/`, their profile is linked. Omit `author` to post anonymously.
+`title` is shown in the hero information box. If `author` matches a person file
+in `src/content/people/`, their profile is linked. Omit `author` to post anonymously.
 
 ## 4. Write the body
 
@@ -121,7 +134,7 @@ To embed a video, use a raw `<video>` tag with absolute paths under
 
 ```html
 <video controls>
-	<source src="/assets/content/projects/your-slug/clip.mp4" />
+ <source src="/assets/content/projects/your-slug/clip.mp4" />
 </video>
 ```
 

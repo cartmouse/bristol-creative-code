@@ -23,7 +23,15 @@ const link = z.object({
 
 export const eventSchema = z.object({
 	date: isoDate,
-	rsvp: z.string().url().optional()
+	rsvp: z.string().url().optional(),
+	images: z
+		.array(
+			z.object({
+				src: z.string().min(1),
+				alt: z.string().min(1)
+			})
+		)
+		.optional()
 });
 
 export const personSchema = z.object({

@@ -26,16 +26,18 @@
 	<aside class="card-next">
 		<h3>{event.title}</h3>
 		<time class="muted" datetime={event.date}>{formatDate(event.date)}</time>
-		<div class="actions">
-			{#if !hideDetails}
-				<a class="btn" href={resolve('/about')}>Details</a>
-			{/if}
-			{#if event.rsvp}
-				<a class="btn btn-accent" href={event.rsvp} rel="noopener noreferrer" target="_blank"
-					>RSVP</a
-				>
-			{/if}
-		</div>
+		{#if !hideDetails || event.rsvp}
+			<div class="actions">
+				{#if !hideDetails}
+					<a class="btn" href={resolve('/about')}>Details</a>
+				{/if}
+				{#if event.rsvp}
+					<a class="btn btn-accent" href={event.rsvp} rel="noopener noreferrer" target="_blank"
+						>RSVP</a
+					>
+				{/if}
+			</div>
+		{/if}
 	</aside>
 {:else}
 	<a class="card" href={resolve('/events/[slug]', { slug: event.slug })}>

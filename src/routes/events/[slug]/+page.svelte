@@ -21,11 +21,26 @@
 		<p class="date"><time datetime={event.date}>{formatDate(event.date)}</time></p>
 	</header>
 
-	{#if projects.length}
+	{#if event.images && event.images.length}
 		<header class="section-head">
-			<h2>Projects from this jam</h2>
-			<span class="muted count">{projects.length}</span>
+			<h2>Gallery</h2>
 		</header>
+		<div class="gallery">
+			<div class="grid">
+				{#each event.images as image (image.src)}
+					<figure class="tile">
+						<img src={image.src} alt={image.alt} loading="lazy" />
+					</figure>
+				{/each}
+			</div>
+		</div>
+	{/if}
+
+	<header class="section-head">
+		<h2>Projects from this jam</h2>
+		<span class="muted count">{projects.length}</span>
+	</header>
+	{#if projects.length}
 		<div class="grid">
 			{#each projects as project (project.slug)}
 				<ProjectCard {project} />
@@ -39,10 +54,8 @@
 </div>
 
 <style>
-	.event-header {
-		padding-bottom: var(--space-5);
-		margin-bottom: var(--space-3);
-		border-bottom: var(--border);
+	.section-head {
+		margin-top: var(--space-4);
 	}
 	.date {
 		font-family: var(--font-mono);
@@ -58,9 +71,24 @@
 		grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
 		gap: var(--space-4);
 	}
-	.section-head {
-		border-top: none;
-		margin-top: 0;
-		padding-top: 0;
+	.gallery {
+		display: flex;
+		flex-direction: column;
+		gap: var(--space-4);
+	}
+	.tile {
+		margin: 0;
+		background: var(--color-ink);
+		overflow: hidden;
+		border: var(--border);
+	}
+	.tile img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		display: block;
+	}
+	.tile {
+		aspect-ratio: 4 / 3;
 	}
 </style>
